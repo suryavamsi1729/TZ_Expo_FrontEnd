@@ -65,11 +65,11 @@ export function AppSidebar() {
   console.log(state);
   return (
     <Sidebar collapsible="icon" >
-        <SidebarHeader className={cn("w-full h-auto p-2")}>
+        <SidebarHeader className={cn("w-full h-auto p-1 border-b border-zinc-200")}>
           <SidebarMenu>
             <SidebarMenuItem>
             <SidebarMenuButton asChild>
-                    <a href="#" className={cn(`w-full h-auto flex items-center space-x-2 group-data-[collapsible=icon]:size-auto! group-data-[collapsible=icon]:p-0!  px-3 py-3 `)}>
+                    <a href="#" className={cn(`w-full h-auto flex items-center space-x-2 group-data-[collapsible=icon]:size-auto! group-data-[collapsible=icon]:p-0!  px-3 py-3 hover:bg-transparent `)}>
                       <img src={applogo} alt="logo" className="h-7 w-7" />
                       <span className="text-zinc-700 font-bold text-xl">SHWAS</span>
                     </a>
@@ -96,7 +96,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className={cn("w-full h-auto p-1 border-t border-zinc-200")}>
         
         <SidebarMenu>
           <SidebarMenuItem>
