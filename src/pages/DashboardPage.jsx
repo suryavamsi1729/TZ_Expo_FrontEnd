@@ -1,6 +1,6 @@
 import Layout from "../layouts/Layout";
 
-const Dashboard = () => {
+const DashboardPage = () => {
   return (
     <Layout>
       
@@ -8,4 +8,4 @@ const Dashboard = () => {
   );
 }
 
-export default Dashboard;
+export default DashboardPage;

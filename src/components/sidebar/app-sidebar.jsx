@@ -1,8 +1,5 @@
 import { Home,Bell ,Cctv ,MessageCircleWarning ,CodeXml, BrainCircuit} from "lucide-react"
-import logo from "../../assets/logo.svg";
 import applogo from "../../assets/applogo.svg";
-import logocropped from "../../assets/logo-cropped.svg";
-import kesava from "../../assets/kesava.jpeg";
 import { useSidebar } from "@/components/ui/sidebar";
 import UserDropdownMenu from "./userdropdown";
 import {
@@ -17,6 +14,7 @@ import {
 } from "@/components/ui/sidebar"
 import { SidebarFooter, SidebarHeader } from "../ui/sidebar";
 import { cn } from "../../lib/utils";
+import useBreadcrumsStore from "../../store/breadcrumsStore";
 
 // Menu items.
 const items = [
@@ -62,8 +60,9 @@ export function AppSidebar() {
     isMobile,
     toggleSidebar,
   } = useSidebar();
-  console.log(state);
+  const addBreadcrum = useBreadcrumsStore((state)=>state.addBreadcrumb);
   return (
+
     <Sidebar collapsible="icon" >
         <SidebarHeader className={cn("w-full h-auto p-1 border-b border-zinc-200")}>
           <SidebarMenu>
@@ -84,8 +83,8 @@ export function AppSidebar() {
             <SidebarMenu className={cn("space-y-2")}>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton className={cn("px-4 py-2 ")} asChild>
-                    <a className={cn(" text-base w-full h-auto group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:size-auto! group-data-[collapsible=icon]:p-0! p-3")} href={item.url}>
+                  <SidebarMenuButton onClick={()=>{addBreadcrum({name:item.title,parent:"none"})}} className={cn("px-4 py-2 ")} asChild>
+                    <a className={cn(" text-base w-full h-auto group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:size-auto! group-data-[collapsible=icon]:p-0! p-3 hover:cursor-pointer")} >
                       <item.icon className={cn("text-zinc-600/80 group-hover/menu-item:text-zinc-700 stroke-2 text-xl")} />
                       <span className={cn("text-base  text-zinc-600/80 group-hover/menu-item:text-zinc-700")}>{item.title}</span>
                     </a>

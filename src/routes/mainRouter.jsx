@@ -1,11 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
-import Dashboard from "../pages/Dashboard";
-import ErrorPage from "../pages/Error";
+import { ErrorPage,LoginPage,RegisterPage,DashboardPage } from "../pages";
 
 const MainRouter = createBrowserRouter([
     {
+        path:"/login",
+        element: <LoginPage />,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path:"/sigup",
+        element: <RegisterPage />,
+        errorElement: <ErrorPage/>
+    },
+    {
         path: "/",
-        element: <Dashboard />,
+        element: <DashboardPage />,
         errorElement: <ErrorPage/>
     }
 ]);

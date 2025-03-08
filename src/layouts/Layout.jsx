@@ -12,7 +12,7 @@ export default function Layout({ children }) {
           <div className="w-full h-auto flex flex-row justify-start items-center p-4  border-zinc-200">
             <SidebarTrigger className={"bg-transparent border-none outline-none ring-0 hover:bg-zinc-300/40"}/>
             <div className="grow h-auto flex flex-col justify-center items-start px-4 ">
-              {/* <DashbordBreadcumbs/> */}
+              <DashbordBreadcumbs/>
             </div>
           </div>
           {children}

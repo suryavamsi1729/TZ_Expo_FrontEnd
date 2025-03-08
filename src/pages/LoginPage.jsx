@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-//import { signIn } from "../api";
-import { useDispatch } from "react-redux";
-import { userActions } from "../store/userSlice";
 
-const Login = () => {
+
+const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,29 +30,7 @@ const Login = () => {
       return;
     }
 
-    try {
-      const data = await signIn({
-        email: sanitizedEmail,
-        password: sanitizedPassword,
-      });
-
-      console.log(data);
-      if (data.role === "admin") {
-        dispatch(userActions.setUser(data.user));
-        localStorage.setItem(import.meta.env.VITE_APP_TOKEN, data.token);
-        setIsLoading(false);
-        toast.success("Login Successful!!");
-        navigate("/dashboard");
-      } else {
-        setError("Invalid Credentials");
-        toast.error("Invalid Credentials");
-        setIsLoading(false);
-      }
-    } catch (err) {
-      setError("Invalid Credentials");
-      setIsLoading(false);
-      return;
-    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -120,7 +95,7 @@ const Login = () => {
 
               <p className="my-1 text-xs pb-0">
                 Don't Have An Account ?{" "}
-                <Link to="/register" className="hover:underline">
+                <Link to="/signup" className="hover:underline">
                   Register Here
                 </Link>
               </p>
@@ -146,4 +121,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;
