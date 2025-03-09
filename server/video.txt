@@ -1,0 +1,306 @@
+import React, { useRef, useEffect, useState } from "react";
+import axios from "axios";
+
+const WebcamRecorder = () => {
+  const videoRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const [stream, setStream] = useState(null);
+  const [isRecording, setIsRecording] = useState(false);
+
+  useEffect(() => {
+    startWebcam();
+    return () => stopWebcam();
+  }, []);
+
+  const startWebcam = async () => {
+    try {
+      const videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      videoRef.current.srcObject = videoStream;
+      setStream(videoStream);
+    } catch (error) {
+      console.error("Error accessing webcam:", error);
+    }
+  };
+
+  const stopWebcam = () => {
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+    }
+  };
+
+  const startRecording = () => {
+    if (!stream) return;
+    setIsRecording(true);
+
+    const mediaRecorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+    let chunks = [];
+
+    mediaRecorder.ondataavailable = async (event) => {
+      if (event.data.size > 0) {
+        chunks.push(event.data);
+      }
+    };
+
+    mediaRecorder.onstop = async () => {
+      if (chunks.length > 0) {
+        const videoBlob = new Blob(chunks, { type: "video/webm" });
+        await sendVideoToBackend(videoBlob);
+      }
+
+      // Restart recording immediately if still recording
+      if (isRecording) {
+        setTimeout(recordChunk, 100); // Small delay before restarting
+      }
+    };
+
+    mediaRecorderRef.current = mediaRecorder;
+    mediaRecorder.start();
+
+    // Stop and process chunk every 5 seconds
+    setTimeout(() => {
+      if (mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+      }
+    }, 1000);
+  };
+
+  const stopRecording = () => {
+    setIsRecording(false);
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+      mediaRecorderRef.current.stop();
+    }
+  };
+
+  const sendVideoToBackend = async (videoBlob) => {
+    const formData = new FormData();
+    formData.append("video", videoBlob, `chunk-${Date.now()}.webm`);
+
+    try {
+      const response = await axios.post("http://localhost:5000/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log("Server Response:", response.data);
+    } catch (error) {
+      console.error("Error uploading video chunk:", error);
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center p-6">
+      <h2 className="text-xl font-bold mb-4">Webcam Recorder</h2>
+      <video ref={videoRef} autoPlay playsInline className="border rounded-lg shadow-md w-[400px] h-[300px]"></video>
+      <div className="mt-4 flex gap-4">
+        {!isRecording ? (
+          <button onClick={startRecording} className="px-4 py-2 bg-green-500 text-white rounded-lg">
+            Start Recording
+          </button>
+        ) : (
+          <button onClick={stopRecording} className="px-4 py-2 bg-red-500 text-white rounded-lg">
+            Stop Recording
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default WebcamRecorder;
+const express = require("express");
+const multer = require("multer");
+const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
+
+const app = express();
+const port = 5000;
+
+// Enable CORS (allows frontend to send requests)
+app.use(cors());
+
+// Create 'uploads' directory if it doesn't exist
+const uploadDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
+// Multer configuration for file storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // Save videos in the 'uploads' folder
+  },
+  filename: (req, file, cb) => {
+    const timestamp = Date.now();
+    cb(null, `video_${timestamp}.webm`); // Unique filename for each segment
+  }
+});
+
+const upload = multer({ storage });
+
+// Upload video endpoint
+app.post("/upload", upload.single("video"), (req, res) => {
+    console.log("Received video file:", req.file);
+    if (!req.file) {
+        return res.status(400).json({ message: "No video uploaded" });
+    }
+
+    const tempPath = req.file.path;
+    const targetPath = path.join(__dirname, "uploads", `${Date.now()}.webm`);
+
+    fs.rename(tempPath, targetPath, (err) => {
+        if (err) {
+            console.error("File save error:", err);
+            return res.status(500).json({ message: "File save error" });
+        }
+        console.log("Saved video to:", targetPath);
+        res.json({ message: "Video chunk uploaded successfully", filename: path.basename(targetPath) });
+    });
+});
+
+
+// Serve uploaded videos (for testing)
+app.use("/uploads", express.static("uploads"));
+app.listen(port, () => {
+  console.log(`🚀 Server running at http://localhost:${port}`);
+});
+import React, { useRef, useEffect, useState } from "react";
+import axios from "axios";
+
+const WebcamRecorder = () => {
+  const videoRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const [stream, setStream] = useState(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [chunks, setChunks] = useState([]);
+  const intervalRef = useRef(null); // Store interval reference
+
+  useEffect(() => {
+    startWebcam();
+    return () => stopWebcam();
+  }, []);
+
+  const startWebcam = async () => {
+    try {
+      const videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      videoRef.current.srcObject = videoStream;
+      setStream(videoStream);
+    } catch (error) {
+      console.error("Error accessing webcam:", error);
+    }
+  };
+
+  const stopWebcam = () => {
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+    }
+  };
+
+  const startRecording = () => {
+    if (!stream) return;
+    setIsRecording(true);
+
+    let recordedChunks = [];
+    const mediaRecorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+
+    mediaRecorder.ondataavailable = async (event) => {
+      if (event.data.size > 0) {
+        recordedChunks.push(event.data);
+        sendVideoChunk(event.data);
+      }
+    };
+
+    mediaRecorder.onstop = () => {
+      console.log("Recording stopped.");
+    };
+
+    mediaRecorderRef.current = mediaRecorder;
+    mediaRecorder.start();
+
+    // Force recording a new chunk every 3 seconds
+    intervalRef.current = setInterval(() => {
+      if (mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        mediaRecorder.start();
+      }
+    }, 3000);
+  };
+
+  const stopRecording = () => {
+    setIsRecording(false);
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+      mediaRecorderRef.current.stop();
+    }
+    clearInterval(intervalRef.current);
+  };
+
+  const sendVideoChunk = async (videoChunk) => {
+    const formData = new FormData();
+    formData.append("video", videoChunk, `chunk-${Date.now()}.webm`);
+
+    try {
+      const response = await axios.post("http://localhost:5000/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log("Chunk uploaded:", response.data);
+    } catch (error) {
+      console.error("Error uploading chunk:", error);
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center p-6">
+      <h2 className="text-xl font-bold mb-4">Webcam Recorder</h2>
+      <video ref={videoRef} autoPlay playsInline className="border rounded-lg shadow-md w-[400px] h-[300px]"></video>
+      <div className="mt-4 flex gap-4">
+        {!isRecording ? (
+          <button onClick={startRecording} className="px-4 py-2 bg-green-500 text-white rounded-lg">
+            Start Recording
+          </button>
+        ) : (
+          <button onClick={stopRecording} className="px-4 py-2 bg-red-500 text-white rounded-lg">
+            Stop Recording
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default WebcamRecorder;
+const express = require("express");
+const multer = require("multer");
+const cors = require("cors");
+const axios = require("axios");
+
+const app = express();
+const port = 5000;
+
+app.use(cors());
+
+// Multer setup (store in memory, no disk storage)
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+app.post("/upload", upload.single("video"), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "No video uploaded" });
+  }
+
+  try {
+    // Forward the video chunk to another API
+    const response = await axios.post("http://another-api.com/process-video", req.file.buffer, {
+      headers: {
+        "Content-Type": "video/webm",
+      },
+    });
+
+    console.log("Chunk forwarded to API:", response.data);
+    res.json({ message: "Chunk forwarded successfully", apiResponse: response.data });
+  } catch (error) {
+    console.error("Error forwarding chunk:", error);
+    res.status(500).json({ message: "Failed to forward chunk" });
+  }
+});
+
+app.listen(port, () => {
+  console.log(`🚀 Server running at http://localhost:${port}`);
+});
