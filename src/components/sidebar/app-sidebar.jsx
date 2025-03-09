@@ -1,13 +1,14 @@
-import { Home,Bell ,Cctv ,MessageCircleWarning ,CodeXml, BrainCircuit} from "lucide-react"
+import { Home,Bell ,Cctv ,MessageCircleWarning ,CodeXml, BrainCircuit, Webcam} from "lucide-react"
 import applogo from "../../assets/applogo.svg";
-import { useSidebar } from "@/components/ui/sidebar";
 import UserDropdownMenu from "./userdropdown";
+import { useLocation, useNavigate } from "react-router-dom";
+import { navgationCheck } from "../../lib/utils";
+import { useEffect } from "react";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -22,47 +23,57 @@ const items = [
     title: "Home",
     url: "#",
     icon: Home,
+    link:"/home"
   },
   {
     title: "Cemaras",
     url: "#",
     icon: Cctv,
+    link:"/cctv"
   },
   {
     title: "Notifications",
     url: "#",
     icon: Bell,
+    link:"/notifications"
   },
   {
     title: "Demo",
     url: "#",
-    icon: CodeXml,
+    icon: CodeXml,  
+    link:"/demo"
   },
   {
     title: "Reports",
     url: "#",
     icon: MessageCircleWarning,
+    link:"/reports"
+  },
+  {
+    title: "WebCam",
+    url: "#",
+    icon: Webcam,
+    link:"/WebCam"
   },
   {
     title: "Model Parameters",
     url: "#",
     icon: BrainCircuit,
-  },
+    link:"/modelparameters"
+  }
 ]
 
 export function AppSidebar() {
-  const {
-    state,
-    open,
-    setOpen,
-    openMobile,
-    setOpenMobile,
-    isMobile,
-    toggleSidebar,
-  } = useSidebar();
-  const addBreadcrum = useBreadcrumsStore((state)=>state.addBreadcrumb);
-  return (
+  
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const addBreadcrum = useBreadcrumsStore((state)=>state.addBreadcrumb);
+  useEffect(() => {
+    addBreadcrum({name:location.pathname.slice(1,) ,parent:"none"})
+  }, []);
+
+  return (
     <Sidebar collapsible="icon" >
         <SidebarHeader className={cn("w-full h-auto p-1 border-b border-zinc-200")}>
           <SidebarMenu>
@@ -83,10 +94,11 @@ export function AppSidebar() {
             <SidebarMenu className={cn("space-y-2")}>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton onClick={()=>{addBreadcrum({name:item.title,parent:"none"})}} className={cn("px-4 py-2 ")} asChild>
-                    <a className={cn(" text-base w-full h-auto group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:size-auto! group-data-[collapsible=icon]:p-0! p-3 hover:cursor-pointer")} >
-                      <item.icon className={cn("text-zinc-600/80 group-hover/menu-item:text-zinc-700 stroke-2 text-xl")} />
-                      <span className={cn("text-base  text-zinc-600/80 group-hover/menu-item:text-zinc-700")}>{item.title}</span>
+                  {/* onClick={()=>{addBreadcrum({name:item.title,parent:"none"})}} */}
+                  <SidebarMenuButton onClick={()=>{navigate(item.link)}}  className={cn(`px-4 py-2 ${navgationCheck(location.pathname,item.link)?"bg-zinc-300":null} hover:bg-zinc-200`)} asChild>
+                    <a className={cn(" text-base w-full h-auto group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:size-auto! group-data-[collapsible=icon]:p-0! p-3 hover:cursor-pointer ")} >
+                      <item.icon className={cn(`text-zinc-600/80 group-hover/menu-item:text-zinc-700 stroke-2 text-xl ${navgationCheck(location.pathname,item.link)?"text-zinc-900":null}`)} />
+                      <span className={cn(`text-base  text-zinc-600/80 group-hover/menu-item:text-zinc-700 ${navgationCheck(location.pathname,item.link)?"text-zinc-900":null}`)}>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

@@ -68,12 +68,7 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
+/* button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -82,7 +77,7 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
-}
+} */
 
 .lucide {
   /* Change this! */
@@ -90,6 +85,7 @@ button {
   height: 22px;
   stroke-width: 2px;
 }
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -207,4 +203,30 @@ button {
   body {
     @apply bg-background text-foreground;
   }
+}
+.plane-background{
+  background-image: radial-gradient(circle at top left, #eead97 0%, #f1f1e6 35%, #fdfdfc 100%);
+}
+.plane-background-auth{
+  background-image: linear-gradient(120deg, #d61c86 0%,  #e45d6f 45%, #d66227 100%);
+}
+.auth-glash-bacground{
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+input:-webkit-autofill {
+  caret-color: black !important; /* Change caret color */
+  color: black !important;  /* Change text color */
+  background-color: transparent !important; /* Ensure background doesn't change */
+  -webkit-text-fill-color: black !important; /* Ensures text color is applied */
+  transition: background-color 5000s ease-in-out 0s; /* Prevent autofill background color change */
+}
+.commonShadow{
+  backdrop-filter: blur(24px);
+  box-shadow: 0px 0px 32px 0px #72729F29;
 }

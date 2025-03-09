@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import applogo from "../assets/applogo.svg";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -99,13 +100,22 @@ const RegisterPage = () => {
   
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center max-md:px-2">
-      <div className="w-full rounded-lg border bg-card text-card-foreground shadow mx-auto max-w-md">
+    <div className="min-w-screen plane-background-auth min-h-screen flex flex-col items-center justify-center max-md:px-2">
+      <div className="absolute auth-glash-bacground left-4 -top-20 rotate-45 w-[360px] h-[180px] opacity-50"></div>
+      <div className="absolute auth-glash-bacground left-[1024px] top-[550px] rotate-20 w-[200px] h-[110px] opacity-38"></div>
+      <div className="absolute auth-glash-bacground left-[880px] top-[220px] rotate-25 w-[160px] h-[160px] opacity-40"></div>
+      <div className="absolute auth-glash-bacground left-[60px] top-[440px] -rotate-15 w-[190px] h-[90px] opacity-32"></div>
+      <div className="absolute auth-glash-bacground left-[190px] bottom-[80px] rotate-3 w-[156px] h-[87px] opacity-30"></div>
+      <div className="absolute auth-glash-bacground left-[360px] top-[500px] rotate-39 w-[290px] h-[128px] opacity-20"></div>
+      <div className="absolute auth-glash-bacground left-[360px] top-[120px] rotate-2 w-[229px] h-[130px] opacity-20"></div>
+      <div className="absolute auth-glash-bacground left-[30px] top-[200px] rotate-0 w-[220px] h-[90px] opacity-20"></div>
+      <div className="rounded-lg border auth-glash-bacground mx-auto max-w-sm"></div>
+      <div className="auth-glash-bacground w-full rounded-lg border bg-card text-card-foreground shadow mx-auto max-w-md">
         <div className="flex flex-col space-y-1.5 p-6">
           <div className="font-semibold tracking-tight text-2xl mb-2.5 text-center">
             Register for {plan.charAt(0).toUpperCase() + plan.slice(1)} Plan
           </div>
-          <div className="text-sm text-muted-foreground text-center">
+          <div className="text-sm text-zinc-900/80 text-center">
             Complete your registration to get started
           </div>
         </div>
@@ -119,7 +129,7 @@ const RegisterPage = () => {
                   type="text"
                   value={plan.charAt(0).toUpperCase() + plan.slice(1)}
                   disabled
-                  className="flex h-9 w-full rounded-md border bg-gray-200 px-3 py-1 text-sm shadow-sm"
+                  className="flex h-9 w-full rounded-md text-white bg-zinc-900/80 px-3 py-1 text-sm shadow-sm ring-0 focus:outline focus:outline-zinc-900 placeholder:text-zinc-800/70"
                 />
               </div>
 
@@ -130,7 +140,7 @@ const RegisterPage = () => {
                   placeholder="Enter your Full Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm"
+                  className="flex h-9 w-full rounded-md border border-zinc-900 px-3 py-1 text-sm shadow-sm ring-0 focus:outline focus:outline-zinc-900 placeholder:text-zinc-800/70"
                 />
               </div>
 
@@ -141,7 +151,7 @@ const RegisterPage = () => {
                   placeholder="Enter your Email Address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm"
+                  className="flex h-9 w-full rounded-md border border-zinc-900 px-3 py-1 text-sm shadow-sm ring-0 focus:outline focus:outline-zinc-900 placeholder:text-zinc-800/70"
                 />
               </div>
 
@@ -152,7 +162,7 @@ const RegisterPage = () => {
                   placeholder="Enter your Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm"
+                  className="flex h-9 w-full rounded-md border border-zinc-900 px-3 py-1 text-sm shadow-sm ring-0 focus:outline focus:outline-zinc-900 placeholder:text-zinc-800/70"
                 />
               </div>
 
@@ -163,7 +173,7 @@ const RegisterPage = () => {
                   placeholder="Confirm your Password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm"
+                  className="flex h-9 w-full rounded-md border border-zinc-900 px-3 py-1 text-sm shadow-sm ring-0 focus:outline focus:outline-zinc-900 placeholder:text-zinc-800/70"
                 />
               </div>
 
@@ -172,7 +182,7 @@ const RegisterPage = () => {
                 <select
                   value={locationId}
                   onChange={(e) => setLocationId(e.target.value)}
-                  className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm"
+                  className="flex h-9 w-full rounded-md border border-zinc-900 px-3 py-1 text-sm shadow-sm ring-0 focus:outline focus:outline-zinc-900 placeholder:text-zinc-800/70"
                 >
                   <option value="">Select your location</option>
                   {locations.map((location) => (

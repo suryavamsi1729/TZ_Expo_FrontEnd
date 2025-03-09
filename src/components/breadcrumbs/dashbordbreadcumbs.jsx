@@ -21,8 +21,8 @@ export default function DashbordBreadcumbs() {
             if(index!==breadcrums.length-1){
               return(
                 <>
-                <BreadcrumbItem>
-                  <BreadcrumbLink className={"text-base font-medium text-zinc-700/60"}>
+                <BreadcrumbItem key={index}>
+                  <BreadcrumbLink className={"text-lg font-medium text-zinc-700/60"}>
                     <Link to="/">{item.name}</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -33,8 +33,8 @@ export default function DashbordBreadcumbs() {
             else{
               return(
                 <>
-                <BreadcrumbItem>
-                  <BreadcrumbPage className={"text-base font-semibold text-zinc-700"}>
+                <BreadcrumbItem key={index}>
+                  <BreadcrumbPage className={"text-lg font-semibold text-zinc-700"}>
                     {item.name}
                   </BreadcrumbPage>
                 </BreadcrumbItem>

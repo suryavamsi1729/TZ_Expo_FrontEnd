@@ -14,7 +14,7 @@ import {  GiCutDiamond } from "react-icons/gi"; // Silver, Gold, Diamond icons
 import AccidentsChart from "../../components/charts/AccidentsChart";
 import TrafficViolationsChart from "../../components/charts/TrafficViolationsChart";
 import { accidentsData, violationsData } from "../../data/chartData";
-import UserProfile from "../../components/dashboard/UserProfile";
+// import UserProfile from "../../components/dashboard/UserProfile";
 
 const StatCard = ({ icon, title, value, change }) => (
   <div className="bg-white p-4 lg:p-6 rounded-lg shadow-md">
@@ -86,7 +86,7 @@ const EnterpriseDashboard = () => {
 </div>
 
       <div className="mb-6">
-        <UserProfile />
+        {/* <UserProfile /> */}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
