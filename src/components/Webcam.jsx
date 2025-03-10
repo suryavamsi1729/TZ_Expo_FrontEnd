@@ -9,12 +9,19 @@ const WebcamRecorder = () => {
   const containerRef = useRef(null);
   const [stream, setStream] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
-  const [chunks, setChunks] = useState([]);
+  const [captions, setCaptions] = useState(""); // Store current caption
   const intervalRef = useRef(null); // Store interval reference
   useEffect(() => {
     startWebcam();
     return () => stopWebcam();
   }, []);
+  useEffect(() => {
+      if (isRecording) {
+        // Fetch captions periodically while recording
+        const captionInterval = setInterval(fetchCaptions, 1000);
+        return () => clearInterval(captionInterval);
+      }
+    }, [isRecording]);
   useEffect(() => {
     if (containerRef.current) {
       console.log("scroll")
@@ -89,7 +96,22 @@ const WebcamRecorder = () => {
       console.error("Error uploading chunk:", error);
     }
   };
-
+  const fetchCaptions = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/captions");
+      console.log("API Response:", response.data); // Debugging
+  
+      // Extract captions correctly
+      if (response.data.captions && Array.isArray(response.data.captions) && response.data.captions.length > 0) {
+        console.log("Latest Caption:", response.data.captions[response.data.captions.length - 1]); // Debugging
+        setCaptions(response.data.captions[response.data.captions.length - 1].caption);
+      } else {
+        console.warn("No captions received! Data received:", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching captions:", error);
+    }
+  };
   return (
     <div className="w-full h-auto flex flex-col justify-center items-center gap-4">
     <div className="w-full h-auto flex flex-col items-center justify-center gap-4">
@@ -110,7 +132,7 @@ const WebcamRecorder = () => {
       </div>
     </div>
       <div className="w-full h-auto px-4 py-6">
-          <Typewriter className={" w-full h-auto text-lg  text-zinc-600 text-wrap"} speed={25} text=""/>
+          <Typewriter className={" w-full h-auto text-lg  text-zinc-600 text-wrap"} speed={5} text=""/>
       </div>
     </div>
   );
