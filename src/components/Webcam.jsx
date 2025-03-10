@@ -9,21 +9,19 @@ const WebcamRecorder = () => {
   const containerRef = useRef(null);
   const [stream, setStream] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
-  const [captions, setCaptions] = useState("");
-  let captiontodispaly= ""
- // const [chunks, setChunks] = useState([]);
+  const [captions, setCaptions] = useState(""); // Store current caption
   const intervalRef = useRef(null); // Store interval reference
   useEffect(() => {
     startWebcam();
     return () => stopWebcam();
   }, []);
   useEffect(() => {
-    if (isRecording) {
-      // Fetch captions periodically while recording
-      const captionInterval = setInterval(fetchCaptions, 1000);
-      return () => clearInterval(captionInterval);
-    }
-  }, [isRecording]);
+      if (isRecording) {
+        // Fetch captions periodically while recording
+        const captionInterval = setInterval(fetchCaptions, 1000);
+        return () => clearInterval(captionInterval);
+      }
+    }, [isRecording]);
   useEffect(() => {
     if (containerRef.current) {
       console.log("scroll")
@@ -87,7 +85,7 @@ const WebcamRecorder = () => {
 
   const sendVideoChunk = async (videoChunk) => {
     const formData = new FormData();
-    formData.append("video", videoChunk, `chunk-${Date.now()}.webm`);
+    formData.append("video", videoChunk, chunk-${Date.now()}.webm);
 
     try {
       const response = await axios.post("http://localhost:5000/upload", formData, {
@@ -98,33 +96,22 @@ const WebcamRecorder = () => {
       console.error("Error uploading chunk:", error);
     }
   };
-   // 🔹 New function to fetch captions separately
-   const fetchCaptions = async () => {
+  const fetchCaptions = async () => {
     try {
       const response = await axios.get("http://localhost:5000/captions");
-      
-      if (response.data.captions && Array.isArray(response.data.captions)) {
-        const now = Date.now(); // Current timestamp in milliseconds
-        const oneMinuteAgo = now - 60 * 1000; // Timestamp of 1 minute ago
+      console.log("API Response:", response.data); // Debugging
   
-        // Filter captions from the last 1 minute
-        const recentCaptions = response.data.captions.filter(
-          (cap) => cap.timestamp >= oneMinuteAgo
-        );
-  
-        // Combine all captions into a single string with new lines
-        const captionsText = recentCaptions.map((cap) => cap.caption).join("\n");
-  
-        setCaptions(captionsText);
+      // Extract captions correctly
+      if (response.data.captions && Array.isArray(response.data.captions) && response.data.captions.length > 0) {
+        console.log("Latest Caption:", response.data.captions[response.data.captions.length - 1]); // Debugging
+        setCaptions(response.data.captions[response.data.captions.length - 1].caption);
       } else {
-        console.warn("No valid captions received!");
+        console.warn("No captions received! Data received:", response.data);
       }
     } catch (error) {
       console.error("Error fetching captions:", error);
     }
   };
-  
-
   return (
     <div className="w-full h-auto flex flex-col justify-center items-center gap-4">
     <div className="w-full h-auto flex flex-col items-center justify-center gap-4">
@@ -144,8 +131,8 @@ const WebcamRecorder = () => {
         </div>
       </div>
     </div>
-    <div className="w-full h-auto px-4 py-6">
-      <Typewriter className={" w-full h-auto text-lg  text-zinc-600 text-wrap"} speed={25} text={captions}/>
+      <div className="w-full h-auto px-4 py-6">
+          <Typewriter className={" w-full h-auto text-lg  text-zinc-600 text-wrap"} speed={5} text=""/>
       </div>
     </div>
   );
