@@ -85,7 +85,7 @@ const WebcamRecorder = () => {
 
   const sendVideoChunk = async (videoChunk) => {
     const formData = new FormData();
-    formData.append("video", videoChunk, `chunk-${Date.now()}.webm`);
+    formData.append("video", videoChunk, chunk-${Date.now()}.webm);
 
     try {
       const response = await axios.post("http://localhost:5000/upload", formData, {
