@@ -31,7 +31,7 @@ const Typewriter = ({ text, speed = 100,className }) => {
     }, [displayText]);
   
   return(
-        <div className='w-full h-auto bg-white commonShadow rounded-lg flex flex-col justify-center items-start gap-3 py-4 px-1 '>
+        <div className='w-full h-auto bg-white commonShadow rounded-2xl flex flex-col justify-center items-start gap-3 py-4 px-1 '>
           <h1 className='text-2xl font-semibold text-zinc-900 px-7'>Caption:</h1>
           <div ref={containerRef} className='scroll-container typingConatiner w-full h-[320px] overflow-scroll px-7  '>
             <p className={cn("text-zinc-700",className)}>{displayText}</p>

@@ -109,28 +109,8 @@ const WebcamRecorder = () => {
         </div>
       </div>
     </div>
-    <div className="w-full h-auto px-4 py-6">
-      <Typewriter className={" w-full h-auto text-lg  text-zinc-600 text-wrap"} speed={25} text="Content in UX and UI is important because it provides clarity, appeals to users’ emotions and builds on a brand. A human-centred approach to writing even the most minor bits of copy within a user interface can immensely change the user experience.
-
-The copy within an interface can show users a brand’s purpose, make the user feel understood and intuitively show users how to interact with it. Even in just a few words, content designers are telling a compelling, all-inclusive story. Storytelling is an important approach to UX design, which we cover here in more detail.
-
-Content design clarifies navigation and bridges the gaps between context and visual design. For example, if someone gave you a road sign with no words, could you tell them what it meant? More than 11% of people can’t. That’s where good content comes in. A stop sign with the word “STOP” on it is much more effective than a red octagon alone.
-
-Content provides direction or persuades a user to perform a specific action. While the visual design might lure someone in, product teams can use content design to persuade a user. Calls to action can convince a user to perform a specific action, like buying a product or service. Content conveys value and makes the big picture clear.
-
-Content can also be used as another layer of design. Aligning their copy with a brand’s identity helps content designers add personality, show a brand’s value and strengthen a brand’s authenticity. All of these factors are what make a brand stand out from the crowd.
-
-Content designers are tasked with transforming a brand and style guide into a lexicon that conveys an entire brand. By using specific words and writing styles consistently, UX writers enhance brand trust and compel users in the most subtle ways. Content in UX and UI is important because it provides clarity, appeals to users’ emotions and builds on a brand. A human-centred approach to writing even the most minor bits of copy within a user interface can immensely change the user experience.
-
-The copy within an interface can show users a brand’s purpose, make the user feel understood and intuitively show users how to interact with it. Even in just a few words, content designers are telling a compelling, all-inclusive story. Storytelling is an important approach to UX design, which we cover here in more detail.
-
-Content design clarifies navigation and bridges the gaps between context and visual design. For example, if someone gave you a road sign with no words, could you tell them what it meant? More than 11% of people can’t. That’s where good content comes in. A stop sign with the word “STOP” on it is much more effective than a red octagon alone.
-
-Content provides direction or persuades a user to perform a specific action. While the visual design might lure someone in, product teams can use content design to persuade a user. Calls to action can convince a user to perform a specific action, like buying a product or service. Content conveys value and makes the big picture clear.
-
-Content can also be used as another layer of design. Aligning their copy with a brand’s identity helps content designers add personality, show a brand’s value and strengthen a brand’s authenticity. All of these factors are what make a brand stand out from the crowd.
-
-Content designers are tasked with transforming a brand and style guide into a lexicon that conveys an entire brand. By using specific words and writing styles consistently, UX writers enhance brand trust and compel users in the most subtle ways."/>
+      <div className="w-full h-auto px-4 py-6">
+          <Typewriter className={" w-full h-auto text-lg  text-zinc-600 text-wrap"} speed={25} text=""/>
       </div>
     </div>
   );
