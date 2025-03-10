@@ -11,7 +11,7 @@ export default function Layout({ children }) {
     
       <SidebarProvider className={cn("w-screen h-full")}>
         <AppSidebar />
-        <main className="flex flex-col grow h-screen overflow-hidden bg-[#FAFAFA]">
+        <main className="flex flex-col grow h-screen  bg-[#FAFAFA]">
           <div className="w-full h-auto flex flex-row justify-start items-center p-3   border-zinc-200">
             <SidebarTrigger className={"bg-transparent border-none outline-none ring-0 hover:bg-zinc-300/40"}/>
             <div className="grow h-auto flex flex-col justify-center items-start px-4 ">
@@ -27,7 +27,7 @@ export default function Layout({ children }) {
               </div>
             </div>
           </div>
-          <div className="w-full grow p-4">
+          <div className="w-full grow p-4 overflow-scroll">
             {children}
           </div>
         </main>

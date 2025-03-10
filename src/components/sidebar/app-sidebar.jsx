@@ -29,7 +29,7 @@ const items = [
     title: "Cemaras",
     url: "#",
     icon: Cctv,
-    link:"/cctv"
+    link:"/cemaras"
   },
   {
     title: "Notifications",
@@ -53,7 +53,7 @@ const items = [
     title: "WebCam",
     url: "#",
     icon: Webcam,
-    link:"/WebCam"
+    link:"/webcam"
   },
   {
     title: "Model Parameters",
@@ -70,7 +70,9 @@ export function AppSidebar() {
   const navigate = useNavigate();
   const addBreadcrum = useBreadcrumsStore((state)=>state.addBreadcrumb);
   useEffect(() => {
-    addBreadcrum({name:location.pathname.slice(1,) ,parent:"none"})
+    const current_item = items.filter((item)=>item.link===location.pathname);
+    
+    addBreadcrum({name:current_item[0]?.title ,parent:"none"});
   }, []);
 
   return (
