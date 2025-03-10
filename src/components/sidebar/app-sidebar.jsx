@@ -32,22 +32,10 @@ const items = [
     link:"/cemaras"
   },
   {
-    title: "Notifications",
-    url: "#",
-    icon: Bell,
-    link:"/notifications"
-  },
-  {
     title: "Demo",
     url: "#",
     icon: CodeXml,  
     link:"/demo"
-  },
-  {
-    title: "Reports",
-    url: "#",
-    icon: MessageCircleWarning,
-    link:"/reports"
   },
   {
     title: "WebCam",
@@ -60,7 +48,19 @@ const items = [
     url: "#",
     icon: BrainCircuit,
     link:"/modelparameters"
-  }
+  },
+  {
+    title: "Reports",
+    url: "#",
+    icon: MessageCircleWarning,
+    link:"/reports"
+  },
+  {
+    title: "Notifications",
+    url: "#",
+    icon: Bell,
+    link:"/notifications"
+  },
 ]
 
 export function AppSidebar() {

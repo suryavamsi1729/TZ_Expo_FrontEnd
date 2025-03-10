@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import Typewriter from "../hooks/useTypeWriter";
+import {Video,VideoOff} from "lucide-react";
 
 const WebcamRecorder = () => {
   const videoRef = useRef(null);
@@ -93,20 +94,23 @@ const WebcamRecorder = () => {
     <div className="w-full h-auto flex flex-col justify-center items-center gap-4">
     <div className="w-full h-auto flex flex-col items-center justify-center gap-4">
       <h2 className="text-xl font-bold ">Webcam Recorder</h2>
-      <video ref={videoRef} autoPlay playsInline className="commonShadow object-cover border rounded-lg shadow-md w-[840px] h-[460px]"></video>
-      <div className=" flex gap-4">
-        {!isRecording ? (
-          <button onClick={startRecording} className="px-4 py-2 bg-green-500 text-white rounded-lg">
-            Start Recording
-          </button>
-        ) : (
-          <button onClick={stopRecording} className="px-4 py-2 bg-red-500 text-white rounded-lg">
-            Stop Recording
-          </button>
-        )}
+      <div className="w-auto h-auto relative flex flex-col justify-center items-center">
+        <video ref={videoRef} autoPlay playsInline className="commonShadow object-cover bg-zinc-600/60 rounded-2xl w-[880px] h-[460px]"></video>
+        <div className="absolute bottom-4 flex gap-4">
+          {!isRecording ? (
+            <button onClick={startRecording} className="px-4 py-2 bg-green-500 text-white rounded-lg">
+              <Video className="w-6! h-6! stroke-2!"/>
+            </button>
+          ) : (
+            <button onClick={stopRecording} className="px-4 py-2 bg-red-500 text-white rounded-lg">
+              <VideoOff className="w-6! h-6! stroke-2!"/>
+            </button>
+          )}
+        </div>
       </div>
     </div>
-      <Typewriter className={" w-full h-auto text-base text-white text-wrap"} speed={25} text="Content in UX and UI is important because it provides clarity, appeals to users’ emotions and builds on a brand. A human-centred approach to writing even the most minor bits of copy within a user interface can immensely change the user experience.
+    <div className="w-full h-auto px-4 py-6">
+      <Typewriter className={" w-full h-auto text-lg  text-zinc-600 text-wrap"} speed={25} text="Content in UX and UI is important because it provides clarity, appeals to users’ emotions and builds on a brand. A human-centred approach to writing even the most minor bits of copy within a user interface can immensely change the user experience.
 
 The copy within an interface can show users a brand’s purpose, make the user feel understood and intuitively show users how to interact with it. Even in just a few words, content designers are telling a compelling, all-inclusive story. Storytelling is an important approach to UX design, which we cover here in more detail.
 
@@ -127,6 +131,7 @@ Content provides direction or persuades a user to perform a specific action. Whi
 Content can also be used as another layer of design. Aligning their copy with a brand’s identity helps content designers add personality, show a brand’s value and strengthen a brand’s authenticity. All of these factors are what make a brand stand out from the crowd.
 
 Content designers are tasked with transforming a brand and style guide into a lexicon that conveys an entire brand. By using specific words and writing styles consistently, UX writers enhance brand trust and compel users in the most subtle ways."/>
+      </div>
     </div>
   );
 };

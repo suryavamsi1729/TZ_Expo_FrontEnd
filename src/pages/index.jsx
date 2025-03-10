@@ -8,3 +8,4 @@ export { default as SubscriptionPage } from './SubscriptionPage';
 export { default as WebcamPage } from './WebcamPage';
 export { default as CemarasPage } from './CemarasPage';
 export { default as ModelParametersPage } from './ModelParametersPage';
+export { default as DemoPage } from "./DemoPage";

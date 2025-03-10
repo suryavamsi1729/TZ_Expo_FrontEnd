@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ErrorPage,LoginPage,RegisterPage,DashboardPage, LandingPage, SubscriptionPage , WebcamPage,CemarasPage , ModelParametersPage} from "../pages";
+import { ErrorPage,LoginPage,RegisterPage,DashboardPage, LandingPage, SubscriptionPage , WebcamPage,CemarasPage , ModelParametersPage, DemoPage} from "../pages";
 
 
 const MainRouter = createBrowserRouter([
@@ -31,6 +31,11 @@ const MainRouter = createBrowserRouter([
     {
         path: "/cemaras",
         element: <CemarasPage />,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/demo",
+        element: <DemoPage />,
         errorElement: <ErrorPage/>
     },
     {

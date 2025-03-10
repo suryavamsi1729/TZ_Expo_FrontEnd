@@ -204,6 +204,24 @@ body {
     @apply bg-background text-foreground;
   }
 }
+* {
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: gray lightgray;
+}
+
+::-webkit-scrollbar {
+  width: 8px; /* Width of scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray; /* Scroll thumb color */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: lightgray; /* Scroll track color */
+}
+
 .plane-background{
   background-image: radial-gradient(circle at top left, #eead97 0%, #f1f1e6 35%, #fdfdfc 100%);
 }
@@ -287,3 +305,6 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: -407px 0 0 400px #f50;
 }
 
+.inner-shadow-box{
+  box-shadow: inset 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
