@@ -1,46 +1,50 @@
 const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
-const fs = require("fs");
-const path = require("path");
-
+const axios = require("axios");
+const FormData = require("form-data");
 const app = express();
 const port = 5000;
 
-// Enable CORS (allows frontend to send requests)
 app.use(cors());
 
-// Create 'uploads' directory if it doesn't exist
-const uploadDir = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
-
-// Multer configuration for file storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Save videos in the 'uploads' folder
-  },
-  filename: (req, file, cb) => {
-    cb(null, `chunk-${Date.now()}.webm`); // Unique filename for each segment
-  }
-});
-
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
+let consumerStarted = false;
 
-// Upload video endpoint
-app.post("/upload", upload.single("video"), (req, res) => {
+app.post("/upload", upload.single("video"), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No video uploaded" });
   }
 
-  console.log("Received video chunk:", req.file.filename);
-  res.json({ message: "Video chunk uploaded successfully", filename: req.file.filename });
+  try {
+    if (!consumerStarted) {
+      await axios.get("http://127.0.0.1:8000/start_consumer");
+      consumerStarted = true;
+      console.log("Kafka Consumer started.");
+    }
+    // Convert file buffer into FormData
+    const formData = new FormData();
+    formData.append("video", req.file.buffer, { filename: "chunk.webm" });
+
+    const response = await axios.post("http://127.0.0.1:8000/upload_video", formData, {
+      headers: formData.getHeaders(), // Automatically sets correct headers
+    });
+    console.log("Chunk forwarded to API:", response.data);
+    res.json({ message: "Chunk forwarded successfully", apiResponse: response.data });
+  } catch (error) {
+    console.error("Error forwarding chunk:", error.response?.data || error.message);
+    res.status(500).json({ message: "Failed to forward chunk" });
+  }
 });
-
-// Serve uploaded videos (for testing)
-app.use("/uploads", express.static("uploads"));
-
+app.get("/captions", async (req, res) => {
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/captions");
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch captions" });
+  }
+})
 app.listen(port, () => {
   console.log(`🚀 Server running at http://localhost:${port}`);
 });
