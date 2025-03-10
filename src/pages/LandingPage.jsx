@@ -18,6 +18,7 @@ const LandingPage = () => {
       <button onClick={() => navigate("/subscription")} className="px-10 py-3 font-semibold text-white bg-blue-600/95 hover:bg-blue-600 rounded-lg hover:cursor-pointer">
         Get Started
       </button>
+      
     </div>
   );
 };

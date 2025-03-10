@@ -4,8 +4,12 @@ export const accidentsData = {
     {
       label: 'Number of Accidents',
       data: [12, 19, 15, 8, 13, 10],
-      borderColor: 'rgb(75, 192, 192)',
-      tension: 0.1
+      borderColor: '#564EBE',
+      tension: 0.3,
+      fill:{
+        target: 'origin',   // Area will be red above the origin
+        above: 'rgba(189, 186, 242,0.25)',   // Area will be red above the origi
+      }
     }
   ]
 };
