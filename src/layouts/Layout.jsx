@@ -5,11 +5,12 @@ import { cn } from "../lib/utils"
 import { Search } from "lucide-react"
 import {FaMedal } from "react-icons/fa";
 import robot from "../assets/robot.png";
+import { useNavigate } from "react-router-dom"
 
 
 export default function Layout({ children }) {
+  const navigate = useNavigate();
   return (
-    
       <SidebarProvider className={cn("w-screen h-full")}>
         <AppSidebar />
         <main className="relative flex flex-col grow h-screen  bg-[#FAFAFA]">
@@ -31,7 +32,7 @@ export default function Layout({ children }) {
           <div className="w-full grow p-4 overflow-scroll">
             {children}
           </div>
-          <div className="absolute bottom-4 right-4 w-14 h-14 bg-blue-400 rounded-full flex flex-row justify-center items-center p-1">
+          <div onClick={()=>{navigate("/chatbot")}} className="absolute bottom-4 right-4 w-14 h-14 bg-blue-400 rounded-full flex flex-row justify-center items-center p-1">
               <img className="w-8 h-8" src={robot}  alt="chatbot"/>
           </div>
         </main>

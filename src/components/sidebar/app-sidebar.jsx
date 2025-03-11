@@ -1,4 +1,4 @@
-import { Home,Bell ,Cctv ,MessageCircleWarning ,CodeXml, BrainCircuit, Webcam} from "lucide-react"
+import { Home,Bell ,Cctv ,MessageCircleWarning ,CodeXml, BrainCircuit, Webcam, RadioTower} from "lucide-react"
 import applogo from "../../assets/applogo.svg";
 import UserDropdownMenu from "./userdropdown";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -42,6 +42,12 @@ const items = [
     url: "#",
     icon: Webcam,
     link:"/webcam"
+  },
+  {
+    title: "Live",
+    url: "#",
+    icon: RadioTower,
+    link:"/live"
   },
   {
     title: "Model Parameters",

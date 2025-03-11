@@ -85,7 +85,7 @@ const WebcamRecorder = () => {
 
   const sendVideoChunk = async (videoChunk) => {
     const formData = new FormData();
-    formData.append("video", videoChunk, chunk-${Date.now()}.webm);
+    formData.append("video", videoChunk, `chunk-${Date.now()}.webm`);
 
     try {
       const response = await axios.post("http://localhost:5000/upload", formData, {
@@ -132,7 +132,13 @@ const WebcamRecorder = () => {
       </div>
     </div>
       <div className="w-full h-auto px-4 py-6">
-          <Typewriter className={" w-full h-auto text-lg  text-zinc-600 text-wrap"} speed={5} text=""/>
+          <div className={`w-full h-auto bg-white commonShadow rounded-2xl ${captions }  flex-col justify-center items-start gap-3 py-4 px-1 `}>
+              <h1 className='text-2xl font-semibold text-zinc-900 px-7'>Caption:</h1>
+              <div ref={containerRef} className='scroll-container typingConatiner w-full h-[320px] overflow-scroll px-7'>
+                <p className={cn("text-zinc-700", className)}>{captions}</p>
+              </div>
+            </div>
+          {/* <Typewriter className={" w-full h-auto text-lg  text-zinc-600 text-wrap"} speed={5} text=""/> */}
       </div>
     </div>
   );

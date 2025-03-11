@@ -1,13 +1,16 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
+import {Video,VideoOff} from "lucide-react";
+import { cn } from "../../lib/utils";
 
 const WebcamRecorder = () => {
   const videoRef = useRef(null);
+  const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const [stream, setStream] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
-  const [captions, setCaptions] = useState(""); 
+  const [captions, setCaptions] = useState("werhjnfgbijhsbbbd  sjhjsys"); 
   const intervalRef = useRef(null);
   const isUploadingRef = useRef(false);
   const lastCaptionRef = useRef("");
@@ -142,26 +145,33 @@ const WebcamRecorder = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-6">
-      <h2 className="text-xl font-bold mb-4">Webcam Recorder</h2>
-      <video ref={videoRef} autoPlay playsInline className="hidden"></video> {/* Hide live video */}
-      <canvas ref={canvasRef} className="border rounded-lg shadow-md w-[400px] h-[300px]"></canvas> {/* Show slow canvas */}
-      <div className="mt-4 flex gap-4">
-        {!isRecording ? (
-          <button onClick={startRecording} className="px-4 py-2 bg-green-500 text-white rounded-lg">
-            Start Recording
-          </button>
-        ) : (
-          <button onClick={stopRecording} className="px-4 py-2 bg-red-500 text-white rounded-lg">
-            Stop Recording
-          </button>
-        )}
-      </div>
-      {captions && (
-        <div className="mt-4 p-3 bg-gray-800 text-white rounded-lg shadow-lg text-lg">
-          {captions}
+    <div className="w-full h-auto flex flex-col justify-center items-center gap-4">
+    <div className="w-full h-auto flex flex-col items-center justify-center py-2 gap-6">
+      <h2 className="text-2xl font-bold ">Webcam Recorder</h2>
+      <div className="w-auto h-auto relative flex flex-col justify-center items-center">
+        <video ref={videoRef} autoPlay playsInline className="commonShadow object-cover bg-zinc-600/60 rounded-2xl w-[880px] h-[460px]"></video>
+        <div className="absolute bottom-4 flex gap-4">
+          {!isRecording ? (
+            <button onClick={startRecording} className="px-4 py-2 bg-green-500 text-white rounded-lg">
+              <Video className="w-6! h-6! stroke-2!"/>
+            </button>
+          ) : (
+            <button onClick={stopRecording} className="px-4 py-2 bg-red-500 text-white rounded-lg">
+              <VideoOff className="w-6! h-6! stroke-2!"/>
+            </button>
+          )}
         </div>
-      )}
+      </div>
+    </div>
+      <div className="w-full h-auto px-4 py-6">
+          <div className={`w-full h-auto bg-white commonShadow rounded-2xl ${captions===""?"hidden":"flex"}  flex-col justify-center items-start gap-3 py-4 px-1 `}>
+              <h1 className='text-2xl font-semibold text-zinc-900 px-7'>Caption:</h1>
+              <div ref={containerRef} className='scroll-container typingConatiner w-full h-[320px] overflow-scroll px-7'>
+                <p className={cn("w-full h-auto text-lg  text-zinc-600 text-wrap py-3")}>{captions}</p>
+              </div>
+          </div>
+          {/* <Typewriter className={" w-full h-auto text-lg  text-zinc-600 text-wrap"} speed={5} text=""/> */}
+      </div>
     </div>
   );
 };

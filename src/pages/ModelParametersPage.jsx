@@ -1,7 +1,7 @@
 import React, { use, useState } from "react";
 import Layout from "../layouts/Layout";
 import { Slider } from "../components/ui/slider";
-import ParametersContainer from "./modelparameters/ParametersContainer";
+import ParametersContainer from "../components/modelparameters/ParametersContainer";
 
 const ModelParametersPage = ({className,children})=>{
     const [temp,setTemp]=useState(50);
@@ -37,7 +37,7 @@ const ModelParametersPage = ({className,children})=>{
                         <Slider  value={[noT]} onValueChange={(val) => setNof(val[0])}  min={0} max={100} step={1}/>
                     </ParametersContainer>
                 </div>
-                <button className="commonShadow w-auto h-auto px-8 py-2 rounded-lg  bg-white text-xl text-zinc-900 font-semibold mt-6">
+                <button className="commonShadow w-auto h-auto px-8 py-2 rounded-lg bg-white text-xl text-zinc-900 font-semibold hover:cursor-pointer mt-6">
                     Submit
                 </button>
             </div>
