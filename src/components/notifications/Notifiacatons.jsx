@@ -1,9 +1,9 @@
 import { useState } from "react";
-import NotificationList from "../components/notifications/NotificationList";
-import NotificationModal from "../components/notifications/NotificationModal";
+import NotificationList from "./NotificationList";
+import NotificationModal from "./NotificationModal";
 import { RiAddLine } from "react-icons/ri";
 
-import Modal from "../components/ui/Modal";
+import Modal from "../ui/Modal";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([

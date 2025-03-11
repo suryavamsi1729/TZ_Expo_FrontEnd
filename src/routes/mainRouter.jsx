@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ErrorPage,LoginPage,RegisterPage,DashboardPage, LandingPage, SubscriptionPage , WebcamPage,CemarasPage , ModelParametersPage, DemoPage,LivePage} from "../pages";
+import { ErrorPage,LoginPage,RegisterPage,DashboardPage, LandingPage, SubscriptionPage , WebcamPage,CemarasPage , ModelParametersPage, DemoPage,LivePage,NotificationPage,ReportsPage} from "../pages";
 
 
 const MainRouter = createBrowserRouter([
@@ -52,8 +52,17 @@ const MainRouter = createBrowserRouter([
         path: "/modelparameters",
         element: <ModelParametersPage/>,
         errorElement: <ErrorPage/>
-    }
-    
+    },
+    {
+        path: "/notifications",
+        element: <NotificationPage/>,
+        errorElement: <ErrorPage/>
+    },
+    {
+        path: "/reports",
+        element: <ReportsPage/>,
+        errorElement: <ErrorPage/>
+    },
 ]);
 
 export default MainRouter;

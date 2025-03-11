@@ -5,11 +5,23 @@ import { cn } from "../lib/utils"
 import { Search } from "lucide-react"
 import {FaMedal } from "react-icons/fa";
 import robot from "../assets/robot.png";
-import { useNavigate } from "react-router-dom"
-
-
+import { useRef,useState } from "react"
+import ChatInterface from "../components/chatbot/chatInterface"
 export default function Layout({ children }) {
-  const navigate = useNavigate();
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const chatOpenRef = useRef(null);
+
+  const handleChatOpen = () => {
+    if (!isChatOpen) {
+      setIsChatOpen(true);
+    } else {
+      setIsChatOpen(false);
+    }
+  };
+
+  const handleChatClose = () => {
+    setIsChatOpen(false);
+  };
   return (
       <SidebarProvider className={cn("w-screen h-full")}>
         <AppSidebar />
@@ -32,8 +44,13 @@ export default function Layout({ children }) {
           <div className="w-full grow p-4 overflow-scroll">
             {children}
           </div>
-          <div onClick={()=>{navigate("/chatbot")}} className="absolute bottom-4 right-4 w-14 h-14 bg-blue-400 rounded-full flex flex-row justify-center items-center p-1">
+          <div onClick={()=>{setIsChatOpen(!isChatOpen)}} className="absolute bottom-4 right-4 w-14 h-14 bg-blue-400 rounded-full flex flex-row justify-center items-center p-1">
               <img className="w-8 h-8" src={robot}  alt="chatbot"/>
+              <ChatInterface
+                isOpen={isChatOpen}
+                onClose={handleChatClose}
+                chatOpen={chatOpenRef}
+              />
           </div>
         </main>
       </SidebarProvider>
