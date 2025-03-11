@@ -1,9 +1,9 @@
 export const accidentsData = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul',"Aug","Sep","Oct","Nov","Dec"],
   datasets: [
     {
       label: 'Number of Accidents',
-      data: [12, 19, 15, 8, 13, 10],
+      data: [12, 19, 15, 8, 13, 10,3,12,4,7,0,9],
       borderColor: '#564EBE',
       tension: 0.3,
       fill:{
