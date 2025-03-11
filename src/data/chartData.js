@@ -4,7 +4,7 @@ export const accidentsData = {
     {
       label: 'Number of Accidents',
       data: [12, 19, 15, 8, 13, 10,3,12,4,7,0,9],
-      borderColor: '#564EBE',
+      borderColor: '#5654D4',
       tension: 0.3,
       fill:{
         target: 'origin',   // Area will be red above the origin
@@ -15,12 +15,14 @@ export const accidentsData = {
 };
 
 export const violationsData = {
-  labels: ['Speed Limit', 'Red Light', 'Wrong Turn', 'No Signal', 'Illegal Parking'],
+  labels: ['Cam 1', 'Cam 2', 'Cam 3', 'Cam 4', 'Cam 5'],
   datasets: [
     {
       label: 'Number of Violations',
       data: [65, 45, 30, 25, 55],
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      backgroundColor: '#EFEFEF',
+      hoverBackgroundColor: "#5654D4",
+      borderRadius: 12,
     }
   ]
 };

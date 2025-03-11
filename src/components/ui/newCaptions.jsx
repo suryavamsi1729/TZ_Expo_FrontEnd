@@ -167,7 +167,51 @@ const WebcamRecorder = () => {
           <div className={`w-full h-auto bg-white commonShadow rounded-2xl ${captions===""?"hidden":"flex"}  flex-col justify-center items-start gap-3 py-4 px-1 `}>
               <h1 className='text-2xl font-semibold text-zinc-900 px-7'>Caption:</h1>
               <div ref={containerRef} className='scroll-container typingConatiner w-full h-[320px] overflow-scroll px-7'>
-                <p className={cn("w-full h-auto text-lg  text-zinc-600 text-wrap py-3")}>{captions}</p>
+                <div className={cn("w-full h-auto flex flex-col justify-center items-center gap-4 text-lg  text-zinc-600 text-wrap py-3")}>
+                    {captions && (() => {
+                      // Extract JSON from the string
+                      const jsonMatch = captions.match(/```json([\s\S]*?)```/);
+                      
+                      if (!jsonMatch) return <p className="text-red-500">❌ Invalid caption format</p>;
+
+                      try {
+                        const parsedData = JSON.parse(jsonMatch[1].trim());
+
+                        return (
+                          <div className="mt-4 p-4 bg-gray-800 text-white rounded-lg shadow-lg text-lg space-y-2">
+                            <div>
+                              <strong>🚨 Alert Detected:</strong> 
+                              {parsedData.is_alert_detected ? " Yes" : " No"}
+                            </div>
+
+                            {parsedData.alert_description && (
+                              <div>
+                                <strong>📝 Alert Description:</strong> {parsedData.alert_description}
+                              </div>
+                            )}
+
+                            <div>
+                              <strong>🎮 Video Background:</strong> {parsedData.video_background}
+                            </div>
+
+                            <div>
+                              <strong>📹 Video Foreground:</strong> {parsedData.video_foreground}
+                            </div>
+
+                            <div>
+                              <strong>🧑‍🤝‍🧑 People in Video:</strong> {parsedData["people in the video"]}
+                            </div>
+
+                            <div>
+                              <strong>📋 Video Summary:</strong> {parsedData.video_summary}
+                            </div>
+                          </div>
+                        );
+                      } catch (error) {
+                        return <p className="text-red-500">❌ Error parsing captions</p>;
+                      }
+                    })()}
+                </div>
               </div>
           </div>
           {/* <Typewriter className={" w-full h-auto text-lg  text-zinc-600 text-wrap"} speed={5} text=""/> */}
