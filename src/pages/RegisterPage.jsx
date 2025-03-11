@@ -91,7 +91,7 @@ const RegisterPage = () => {
       toast.success("User Registered Successfully! Redirecting...", { autoClose: 2500 });
   
       // Navigate to the respective dashboard
-      navigate(dashboardRoute);
+      navigate("/login");
     } catch (err) {
       setError("Registration failed: " + err.message);
       setIsLoading(false);

@@ -27,7 +27,7 @@ const StatCard = ({ icon, title, value, change }) => (
     </div>
     <div className="w-full grow flex flex-row justify-start items-center p-2 gap-1">
        <div className="w-11 h-11 rounded-[6px] flex flex-col justify-center items-center">
-       <svg className={`${false?"rotate-0":"-rotate-180"}`} width="36" height="36" viewBox="0 0 42 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <svg className={`${true?"rotate-0":"-rotate-180"}`} width="36" height="36" viewBox="0 0 42 30" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path className={`${true?"stroke-green-500":"stroke-red-500"}`} d="M4 27.0227L14.9274 13.9999" stroke="red" stroke-width="3" stroke-linecap="round"/>
           <path className={`${true?"stroke-green-500":"stroke-red-500"}`}d="M22.7956 20.4673L33.723 7.44453" stroke="red" stroke-width="3" stroke-linecap="round"/>
           <path className={`${true?"stroke-green-500":"stroke-red-500"}`}d="M35.4852 14.1448L34.788 6.17522" stroke="red" stroke-width="3" stroke-linecap="round"/>
@@ -35,7 +35,7 @@ const StatCard = ({ icon, title, value, change }) => (
           <path className={`${true?"stroke-green-500":"stroke-red-500"}`}d="M15.1351 14.0393L22.7956 20.4672" stroke="red" stroke-width="3" stroke-linecap="round"/>
         </svg>
        </div>
-       <p className="text-2xl font-semibold text-zinc-800/90">5</p>
+       <p className={`text-2xl font-semibold ${true?"text-green-500":"text-red-500"}`}>1</p>
     </div>
   </Container>
 );
