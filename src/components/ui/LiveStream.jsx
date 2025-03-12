@@ -146,7 +146,7 @@ const YouTubeStreamer = () => {
                 </button>
       </div>
 
-      <YouTubePlayer url={url}/>
+      <YouTubePlayer className={"object-cover"} url={url}/>
       <div className="mt-4 flex gap-4">
         {!isRecording ? (
           <button

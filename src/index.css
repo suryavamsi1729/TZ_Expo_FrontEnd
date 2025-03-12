@@ -308,3 +308,6 @@ input[type="range"]::-moz-range-thumb {
 .inner-shadow-box{
   box-shadow: inset 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
+.html5-video-container video{
+  width: 960px !important;
+}
