@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 
-const YouTubePlayer = () => {
+const YouTubePlayer = ({url}) => {
+  function extractStreamId(url) {
+    const regex = /(?:youtube\.com\/(?:watch\?v=|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  }
   useEffect(() => {
     // Create a script element to load the YouTube IFrame API
     const tag = document.createElement('script');
@@ -13,7 +18,7 @@ const YouTubePlayer = () => {
       window.player = new window.YT.Player('player', {
         height: '360',
         width: '640',
-        videoId: 'II_m28Bm-iM', // Video ID can be updated dynamically as needed
+        videoId: extractStreamId(url), // Video ID can be updated dynamically as needed
         events: {
           onReady: onPlayerReady,
           onStateChange: onPlayerStateChange,

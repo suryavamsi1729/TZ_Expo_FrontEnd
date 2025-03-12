@@ -1,5 +1,8 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
+import YouTubePlayer from "./liveui";
+import { Input } from "./input";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const YouTubeStreamer = () => {
   const mediaRecorderRef = useRef(null);  // MediaRecorder instance reference
@@ -8,6 +11,7 @@ const YouTubeStreamer = () => {
   const [captions, setCaptions] = useState("");
   const isUploadingRef = useRef(false);   // Prevents multiple uploads
   const lastCaptionRef = useRef("");      // Tracks the last displayed caption
+  const [url, setUrl] = useLocalStorage("Url", "");
 
   // ✅ Continuously fetch captions when recording is active
   useEffect(() => {
@@ -74,6 +78,7 @@ const YouTubeStreamer = () => {
 
     clearInterval(intervalRef.current);
     mediaRecorderRef.current?.stream.getTracks().forEach((track) => track.stop());
+    window.location.reload();
   };
 
   // ✅ Upload Video Chunk with Retry Logic
@@ -123,8 +128,25 @@ const YouTubeStreamer = () => {
   return (
     <div className="flex flex-col items-center justify-center p-6">
       <h2 className="text-xl font-bold mb-4">YouTube Stream Recorder</h2>
-      <p className="text-sm mb-4">Open the YouTube video in another tab for recording.</p>
+      <div className="w-full h-auto flex flex-row justify-center items-center gap-4">
+                <input
+                  type="text"
+                  className="flex h-9 m-4 w-[40%] rounded-md border border-zinc-950/80 bg-transparent px-3 py-1 text-sm text-zinc-900 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-zinc-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-900/90 disabled:cursor-not-allowed disabled:opacity-50"
+                  id="password"
+                  name="password"
+                  placeholder="Enter Url"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                />
+                <button onClick={(e)=>{
+                  e.preventDefault();
+                  window.location.reload();
+                }} className="w-auto h-auto px-6 py-2 rounded-lg bg-blue-500 text-white text-md font-medium">
+                  Submit
+                </button>
+      </div>
 
+      <YouTubePlayer url={url}/>
       <div className="mt-4 flex gap-4">
         {!isRecording ? (
           <button
