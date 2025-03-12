@@ -29,7 +29,7 @@ const MainRouter = createBrowserRouter([
         errorElement: <ErrorPage/>
     },
     {
-        path: "/cemaras",
+        path: "/camera",
         element: <CemarasPage />,
         errorElement: <ErrorPage/>
     },
