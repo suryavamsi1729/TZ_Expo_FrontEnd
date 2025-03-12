@@ -46,7 +46,7 @@ const CemaraItem = ({item,className,children})=>{
                 </span>
                 <p className="text-base font-semibold text-white">Live</p>
             </div>
-            <p className={`absolute left-4 top-2 text-lg text-white font-bold`}>{`Cemara ${item.id}`}</p>
+            <p className={`absolute left-4 top-2 text-lg text-white font-bold`}>{`Camera ${item.id}`}</p>
             <p className={`w-full h-auto absolute bottom-2  ${item.status?"flex":"hidden"} flex-row justify-between items-center text-sm text-white font-medium px-4`}><span >{date}</span> <span>{time}</span></p>
             
         </Container>

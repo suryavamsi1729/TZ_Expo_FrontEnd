@@ -26,10 +26,10 @@ const items = [
     link:"/home"
   },
   {
-    title: "Cemaras",
+    title: "Cameras",
     url: "#",
     icon: Cctv,
-    link:"/cemaras"
+    link:"/cameras"
   },
   {
     title: "Demo",

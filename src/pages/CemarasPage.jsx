@@ -61,8 +61,8 @@ const CemarasPage = ({className,children})=>{
                 <div className="w-full h-auto flex flex-col justify-start items-start gap-4">
                     <div className="w-full h-auto flex flex-row justify-start items-center gap-6">
                         <div className="grow h-full flex flex-row justify-start items-center gap-6">
-                            <p className={`text-[14px] text-zinc-900 font-medium ${typeCemaras===null?"flex":typeCemaras?"flex":"hidden"} flex-row justify-center items-center gap-2`}><span className="inline-block w-[7px] h-[7px] rounded-full bg-green-500"></span><span className="inline-block">{`${activeCount} Cemaras Activated`}</span></p>
-                            <p className={`text-[14px] text-zinc-900 font-medium ${typeCemaras===null?"flex":!typeCemaras?"flex":"hidden"} flex flex-row justify-center items-center gap-2`}><span className="inline-block w-[7px] h-[7px] rounded-full bg-red-500"></span><span className="inline-block">{`${deactiveCount} Cemaras Deactive`}</span></p>
+                            <p className={`text-[14px] text-zinc-900 font-medium ${typeCemaras===null?"flex":typeCemaras?"flex":"hidden"} flex-row justify-center items-center gap-2`}><span className="inline-block w-[7px] h-[7px] rounded-full bg-green-500"></span><span className="inline-block">{`${activeCount} Cameras Activated`}</span></p>
+                            <p className={`text-[14px] text-zinc-900 font-medium ${typeCemaras===null?"flex":!typeCemaras?"flex":"hidden"} flex flex-row justify-center items-center gap-2`}><span className="inline-block w-[7px] h-[7px] rounded-full bg-red-500"></span><span className="inline-block">{`${deactiveCount} Cameras Deactive`}</span></p>
                         </div>
                         <SelectCemaras setTypeCemaras={setTypeCemaras} />
                     </div>
