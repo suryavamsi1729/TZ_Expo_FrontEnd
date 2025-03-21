@@ -115,7 +115,7 @@ const WebcamRecorder = () => {
     formData.append("video", videoChunk, `chunk-${Date.now()}.webm`);
 
     try {
-      await axios.post("http://localhost:5000/upload", formData, {
+      await axios.post("http://localhost:9000/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
     } catch (error) {
@@ -125,7 +125,7 @@ const WebcamRecorder = () => {
 
   const fetchCaptions = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/captions");
+      const response = await axios.get("http://localhost:9000/captions");
 
       const newCaptions = response.data.captions;
       console.log("api response",newCaptions);

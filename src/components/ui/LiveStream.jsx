@@ -93,7 +93,7 @@ const YouTubeStreamer = () => {
 
     while (attempts < MAX_RETRIES) {
       try {
-        const response = await axios.post("http://localhost:5000/upload", formData, {
+        const response = await axios.post("http://localhost:9000/upload", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         console.log(`✅ Chunk uploaded successfully: ${response.data.message}`);
@@ -108,7 +108,7 @@ const YouTubeStreamer = () => {
   // ✅ Fetch Captions
   const fetchCaptions = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/captions");
+      const response = await axios.get("http://localhost:9000/captions");
 
       const newCaptions = response.data.captions;
       if (newCaptions && Array.isArray(newCaptions) && newCaptions.length > 0) {

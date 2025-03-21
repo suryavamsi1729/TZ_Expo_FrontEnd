@@ -78,7 +78,7 @@ const WebcamRecorder = () => {
     formData.append("video", videoChunk, `chunk-${Date.now()}.webm`);
 
     try {
-      const response = await axios.post("http://localhost:5000/upload", formData, {
+      const response = await axios.post("http://localhost:9000/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -91,7 +91,7 @@ const WebcamRecorder = () => {
   // 🔹 New function to fetch captions separately
   const fetchCaptions = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/captions");
+      const response = await axios.get("http://localhost:9000/captions");
       console.log("API Response:", response.data); // Debugging
   
       // Extract captions correctly
