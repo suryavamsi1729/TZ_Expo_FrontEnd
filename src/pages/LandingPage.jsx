@@ -28,7 +28,7 @@ const LandingPage = () => {
           Monitor your traffic cameras and get status captions in real-time
         </p>
       </div>
-      <button onClick={() => navigate("/subscription")} className="px-10 py-3 font-semibold text-white bg-blue-600/95 hover:bg-blue-600 rounded-lg hover:cursor-pointer">
+      <button onClick={() => navigate("/login")} className="px-10 py-3 font-semibold text-white bg-blue-600/95 hover:bg-blue-600 rounded-lg hover:cursor-pointer">
         Get Started
       </button>
       

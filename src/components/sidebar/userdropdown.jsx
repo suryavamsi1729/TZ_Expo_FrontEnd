@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import kesava from "../../assets/kesava.jpeg";
+import akshitha from "../../assets/akshitha.jpeg";
 import { cn } from "../../lib/utils";
 import { ChevronsUpDown ,Sparkles, Settings, ReceiptIndianRupee, User, LogOut} from "lucide-react"
 import {
@@ -27,10 +27,10 @@ export default function UserDropdownMenu() {
       <DropdownMenuTrigger asChild>
       <SidebarMenuButton asChild>
               <a href="#" className={cn("w-full h-auto py-2 px-2 flex justify-start items-center space-x-1 group-data-[collapsible=icon]:size-auto! group-data-[collapsible=icon]:p-0!")}>
-                <img src={kesava} alt="logo" className="h-8 w-8 rounded-lg" />
+                <img src={akshitha} alt="logo" className="h-8 w-8 rounded-lg" />
                 <div className="grow flex flex-col justify-center items-start">
-                  <div className="grow text-zinc-700 font-bold text-sm">Kesava</div>
-                  <div className="grow text-zinc-700 font-medium text-sm/[14px] ">Kesava@gmail.com</div>
+                  <div className="grow text-zinc-700 font-bold text-sm">Akshitha</div>
+                  <div className="grow text-zinc-700 font-medium text-sm/[14px] ">Akshithaoleti@gmail.com</div>
                 </div>
                 <ChevronsUpDown className={cn("text-zinc-700")} />
               </a>
@@ -39,10 +39,10 @@ export default function UserDropdownMenu() {
       <DropdownMenuContent side="right" align="end" className="w-56">
         <DropdownMenuLabel>
             <div className={cn("w-full h-auto flex justify-start items-center space-x-2")}>
-                <img src={kesava} alt="logo" className="h-9 w-9 rounded-lg" />
+                <img src={akshitha} alt="logo" className="h-9 w-9 rounded-lg" />
                 <div className="grow flex flex-col justify-center items-start gap-1">
-                  <div className="grow text-zinc-700 font-bold text-sm/[14px]">Kesava</div>
-                  <div className="grow text-zinc-700 font-medium text-sm/[14px] ">Kesava@gmail.com</div>
+                  <div className="grow text-zinc-700 font-bold text-sm/[14px]">Akshitha</div>
+                  <div className="grow text-zinc-700 font-medium text-sm/[14px] ">Akshithaoleti@gmail.com</div>
                 </div>
               </div>
         </DropdownMenuLabel>
